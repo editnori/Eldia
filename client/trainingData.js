@@ -1,23 +1,8 @@
 const trainingData = [
     {input: 'Hi', output: 'Hello there!'},
     {input: 'How are you?', output: 'I am good, thank you for asking!'},
-    {input: 'What is your purpose?', output: 'My purpose is to assist and answer your questions.'},
-    {input: 'What can you do?', output: 'I can answer questions, provide information, and have conversations with users.'},
-    {input: 'Tell me a joke', output: 'Why was the computer cold? Because it left its Windows open.'},
-    {input: 'What is your name?', output: 'I do not have a specific name, you can call me Eldia'},
-    {input: 'Do you like humans?', output: 'As a language model, I do not have personal preferences or emotions.'},
-    {input: 'What is the weather like today?', output: 'I am unable to check the current weather, please check a weather website for the latest information.'},
-    {input: 'What is the meaning of life?', output: 'The meaning of life is a philosophical question that has been debated by scholars and thinkers for centuries. It is subjective and can differ from person to person.'},
-    {input: 'What is love?', output: 'Love is an emotion, feeling, or state of mind that can be described as strong affection towards someone or something.'},
-    {input: 'What is the capital of France?', output: 'The capital of France is Paris.'},
-    {input: 'What is the capital of the United States?', output: 'The capital of the United States is Washington, D.C.'},
-    {input: 'What is the largest country in the world?', output: 'The largest country in the world by area is Russia.'},
-    {input: 'What is the population of the world?', output: 'I do not have the most up-to-date information, but as of 2021, the estimated world population is around 7.9 billion people.'},
-    {input: 'What is your favorite movie?', output: 'As a language model, I do not have personal preferences or emotions.'},
-    {input: 'What is your favorite food?', output: 'As a language model, I do not have personal preferences or emotions.'},
-    {input: 'Do you have a family?', output: 'As a language model, I do not have a family.'},
-    {input: 'What is your favorite book?', output: 'As a language model, I do not have personal preferences or emotions.'},
-    {input: 'What is your favorite color?', output: 'As a language model, I do not have personal preferences or emotions.'},
-    {input: 'Do you have a favorite animal?', output: 'As a language model, I do not have personal preferences or emotions.'},
+
   ];
+  
   console.log(trainingData[0].output); // outputs: 'Hello there!'
+  
