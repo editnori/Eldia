@@ -25,11 +25,7 @@ body {
   justify-content: space-between;
 }
 
-#sidebar {
-  width: 300px;
-  background: #40414F;
-  padding: 15px;
-}
+
 
 #main {
   flex: 1;
