@@ -82,33 +82,53 @@ const handleSubmit = async (e) => {
   // fetch data from server -> bot's response
 
   
-  const response = await fetch('https://eldia.onrender.com',{
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
+  const trainingData = [
+    {
+      input: 'test',
+      output: 'Layth'
     },
-    body: JSON.stringify({
-      prompt: userPrompt
-    })
-  })
+    {
+      input: 'name a non-selective beta-blocker layth',
+      output: 'Layth is metoprolol'
+    },
+    ...
+  ];
   
-  clearInterval(loadInterval);
-  messageDiv.innerHTML = '';
-
-  if(response.ok){
-    const data = await response.json();
-    const parsedData = data.bot.trim();
-
-    console.log({parsedData});
-
-    typeText(messageDiv, parsedData);
+  const selectedPrompt = trainingData.find(data => data.input === userPrompt);
+  
+  if (selectedPrompt) {
+    typeText(messageDiv, selectedPrompt.output);
   } else {
-    const err = await response.text();
-
-    messageDiv.innerHTML = "Something went wrong";
-
-    alert(err);
+    // send the request to the server for a response
+    const response = await fetch('https://eldia.onrender.com',{
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        prompt: userPrompt
+      })
+    })
+    
+    clearInterval(loadInterval);
+    messageDiv.innerHTML = '';
+  
+    if(response.ok){
+      const data = await response.json();
+      const parsedData = data.bot.trim();
+  
+      console.log({parsedData});
+  
+      typeText(messageDiv, parsedData);
+    } else {
+      const err = await response.text();
+  
+      messageDiv.innerHTML = "Something went wrong";
+  
+      alert(err);
+    }
   }
+  
 };
 
 
