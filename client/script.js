@@ -3,6 +3,7 @@ import user from './assets/user.svg';
 import trainingData from './trainingData.js';
 
 const form = document.querySelector('form');
+const chatForm = document.querySelector('form');
 const chatContainer = document.querySelector('#chat_container');
 
 let loadInterval;
