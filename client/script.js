@@ -93,7 +93,7 @@ const handleSubmit = async (event) => {
   }
 
   clearInterval(loadInterval);
-  
+  responseDiv.innerHTML = "<span class='chat-bot'>ChatBot: </span>" + getResponse(prompt);
 };
 
 const getResponse = (prompt) => {
