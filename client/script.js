@@ -1,5 +1,6 @@
 import bot from './assets/bot.svg';
 import user from './assets/user.svg';
+import trainingData from './trainingData.js';
 
 const form = document.querySelector('form');
 const chatContainer = document.querySelector('#chat_container');
@@ -80,18 +81,6 @@ const handleSubmit = async (e) => {
   loader(messageDiv);
 
   // Replace hardcoded training data with actual training data 
-  const trainingData = [
-    {
-      input: 'Hi',
-      output: 'Hello, How can I help you today?'
-    },
-    {
-      input: 'What is diabetes?',
-      output: 'Diabetes is a chronic condition characterized by high levels of sugar (glucose) in the blood. It occurs when the body cannot produce enough insulin, or when the cells do not respond properly to the insulin produced.'
-    },
-    // Add more training data here 
-  ];
-  
   const selectedPrompt = trainingData.find(data => data.input === userPrompt);
   
   if (selectedPrompt) {
@@ -128,6 +117,7 @@ const handleSubmit = async (e) => {
   }
   
 };
+
 
 
 form.addEventListener('submit', handleSubmit);
