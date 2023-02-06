@@ -58,85 +58,53 @@ function chatStripe(isAi, value, uniqueId) {
   );
 }
 
-const handleSubmit = async (e) => {
-  e.preventDefault();
+const handleSubmit = async (event) => {
+  event.preventDefault();
+  const prompt = new FormData(chatForm).get("prompt");
 
-  const data = new FormData(form);
+  messageDiv.innerHTML += formatMessage(false, prompt);
+  chatForm.reset();
 
-  const userPrompt = data.get('prompt');
+  const responseId = createResponseId();
+  messageDiv.innerHTML += formatMessage(true, "", responseId);
+  messageDiv.scrollTop = messageDiv.scrollHeight;
 
-  // user's chatstripe
-  chatContainer.innerHTML += chatStripe(false, userPrompt);
+  const responseDiv = document.getElementById(responseId);
+  showLoadingIndicator(responseDiv);
 
-  form.reset();
-
-  // bot's chatstripe
-  const uniqueId = generateUniqueId();
-  chatContainer.innerHTML += chatStripe(true, "", uniqueId);
-
-  chatContainer.scrollTop = chatContainer.scrollHeight;
-
-  const messageDiv = document.getElementById(uniqueId);
-
-  loader(messageDiv);
-  
-  // Replace hardcoded training data with actual training data 
-  const selectedPrompt = trainingData.find(data => data.input === userPrompt);
-  
-  if (selectedPrompt) {
-    typeText(messageDiv, selectedPrompt.output);
+  const matchingInput = trainingData.find(data => data.input === prompt);
+  if (matchingInput) {
+    showResponse(responseDiv, matchingInput.output);
   } else {
-    // send the request to the server for a response
-    const response = await fetch('https://eldia.onrender.com',{
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        prompt: userPrompt
-      })
-    })
-    
-    clearInterval(loadInterval);
-    messageDiv.innerHTML = '';
-  
-    if(response.ok){
-      const data = await response.json();
-      const parsedData = data.bot.trim();
-  
-      console.log({parsedData});
-  
-      typeText(messageDiv, parsedData);
+    const response = await fetch(apiEndpoint, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ prompt: prompt })
+    });
+
+    if (clearInterval(loadInterval), response.ok) {
+      const responseJson = await response.json();
+      showResponse(responseDiv, responseJson.response.trim());
     } else {
-      const err = await response.text();
-  
-      messageDiv.innerHTML = "Something went wrong";
-  
-      alert(err);
+      const errorMessage = await response.text();
+      responseDiv.innerHTML = "Something went wrong";
+      alert(errorMessage);
     }
   }
 
-  // Add this code here 
   clearInterval(loadInterval);
-  messageDiv.innerHTML = "<span class='chat-bot'>ChatBot: </span>" + respond(inputField.value);
+  responseDiv.innerHTML = "<span class='chat-bot'>ChatBot: </span>" + getResponse(prompt);
+};
+
+const getResponse = (prompt) => {
+  const matchingInput = trainingData.find(data => data.input === prompt);
+  return matchingInput ? matchingInput.output : "Error: No matching input found in training data";
 }
 
-// This function uses Array.prototype.find() method to search for a match
-// in the training data, and returns the output if a match is found
-function respond(prompt) {
-  const selectedData = trainingData.find(data => data.input === prompt);
-  if (selectedData) {
-    return selectedData.output;
-  } else {
-    return "Error: No matching input found in training data";
+chatForm.addEventListener("submit", handleSubmit);
+chatForm.addEventListener("keyup", (event) => {
+  if (event.keyCode === 13) {
+    handleSubmit(event);
   }
-}
-
-
-form.addEventListener('submit', handleSubmit);
-form.addEventListener('keyup', (e) => {
-  if (e.keyCode === 13) {
-    handleSubmit(e);
-  }
-})
+});
 
