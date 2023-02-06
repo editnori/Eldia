@@ -91,7 +91,6 @@ const handleSubmit = async (e) => {
       input: 'name a non-selective beta-blocker layth',
       output: 'Layth is metoprolol'
     },
-    ...
   ];
   
   const selectedPrompt = trainingData.find(data => data.input === userPrompt);
