@@ -79,6 +79,7 @@ const handleSubmit = async (e) => {
   const messageDiv = document.getElementById(uniqueId);
 
   loader(messageDiv);
+  
 
   // Replace hardcoded training data with actual training data 
   const selectedPrompt = trainingData.find(data => data.input === userPrompt);
@@ -115,8 +116,8 @@ const handleSubmit = async (e) => {
       alert(err);
     }
   }
-  
 };
+
 
 
 
@@ -126,3 +127,4 @@ form.addEventListener('keyup', (e) => {
     handleSubmit(e);
   }
 })
+
