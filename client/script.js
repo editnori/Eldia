@@ -80,7 +80,6 @@ const handleSubmit = async (e) => {
 
   loader(messageDiv);
   
-
   // Replace hardcoded training data with actual training data 
   const selectedPrompt = trainingData.find(data => data.input === userPrompt);
   
@@ -116,9 +115,22 @@ const handleSubmit = async (e) => {
       alert(err);
     }
   }
-};
 
+  // Add this code here 
+  clearInterval(loadInterval);
+  messageDiv.innerHTML = "<span class='chat-bot'>ChatBot: </span>" + respond(inputField.value);
+}
 
+// This function uses Array.prototype.find() method to search for a match
+// in the training data, and returns the output if a match is found
+function respond(prompt) {
+  const selectedData = trainingData.find(data => data.input === prompt);
+  if (selectedData) {
+    return selectedData.output;
+  } else {
+    return "Error: No matching input found in training data";
+  }
+}
 
 
 form.addEventListener('submit', handleSubmit);
