@@ -81,7 +81,8 @@ const handleSubmit = async (e) => {
  
   // fetch data from server -> bot's response
 
-  const response = await fetch('https://eldia.onrender.com',{
+  
+  const response = await fetch('https://api.render.com/deploy/srv-cfgcl39gp3jjseccgb50?key=UCkvR3_JPaU',{
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'

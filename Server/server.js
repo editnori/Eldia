@@ -15,7 +15,7 @@ const openai = new OpenAIApi(configuration);
 const app = express();
 app.use(cors());
 app.use(cors({
-  origin: 'https://eldia-xi.vercel.app'
+  origin: 'https://eldia-xi.vercel.app/'
 }));
 
 app.use(function(req, res, next) {
