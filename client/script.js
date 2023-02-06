@@ -79,10 +79,9 @@ const handleSubmit = async (e) => {
   const messageDiv = document.getElementById(uniqueId);
 
   loader(messageDiv);
-  
 
   // Replace hardcoded training data with actual training data 
-  const selectedPrompt = trainingData.find(data => data.input === userPrompt);
+  const selectedPrompt = trainingData.find(data => data.input.toLowerCase() === userPrompt.toLowerCase());
   
   if (selectedPrompt) {
     typeText(messageDiv, selectedPrompt.output);
@@ -116,8 +115,8 @@ const handleSubmit = async (e) => {
       alert(err);
     }
   }
-  
 };
+
 
 
 
