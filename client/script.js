@@ -80,8 +80,8 @@ const handleSubmit = async (e) => {
 
   loader(messageDiv);
 
-  // Replace hardcoded training data with actual training data 
-  const selectedPrompt = trainingData.find(data => data.input === userPrompt);
+   // Replace hardcoded training data with actual training data 
+   const selectedPrompt = trainingData.find(data => data.input.toLowerCase() === userPrompt.toLowerCase());
 
   
   if (selectedPrompt) {
