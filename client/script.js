@@ -3,10 +3,7 @@ import user from './assets/user.svg';
 import trainingData from './trainingData.js';
 
 const form = document.querySelector('form');
-const chatForm = document.querySelector('form');
 const chatContainer = document.querySelector('#chat_container');
-const messageDiv = document.querySelector("#message");
-
 
 let loadInterval;
 
@@ -61,53 +58,73 @@ function chatStripe(isAi, value, uniqueId) {
   );
 }
 
-const handleSubmit = async (event) => {
-  event.preventDefault();
-  const prompt = new FormData(chatForm).get("prompt");
+const handleSubmit = async (e) => {
+  e.preventDefault();
 
-  messageDiv.innerHTML += formatMessage(false, prompt);
-  chatForm.reset();
+  const data = new FormData(form);
 
-  const responseId = createResponseId();
-  messageDiv.innerHTML += formatMessage(true, "", responseId);
-  messageDiv.scrollTop = messageDiv.scrollHeight;
+  const userPrompt = data.get('prompt');
 
-  const responseDiv = document.getElementById(responseId);
-  showLoadingIndicator(responseDiv);
+  // user's chatstripe
+  chatContainer.innerHTML += chatStripe(false, userPrompt);
 
-  const matchingInput = trainingData.find(data => data.input === prompt);
-  if (matchingInput) {
-    showResponse(responseDiv, matchingInput.output);
+  form.reset();
+
+  // bot's chatstripe
+  const uniqueId = generateUniqueId();
+  chatContainer.innerHTML += chatStripe(true, "", uniqueId);
+
+  chatContainer.scrollTop = chatContainer.scrollHeight;
+
+  const messageDiv = document.getElementById(uniqueId);
+
+  loader(messageDiv);
+  
+
+  // Replace hardcoded training data with actual training data 
+  const selectedPrompt = trainingData.find(data => data.input === userPrompt);
+  
+  if (selectedPrompt) {
+    typeText(messageDiv, selectedPrompt.output);
   } else {
-    const response = await fetch(apiEndpoint, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ prompt: prompt })
-    });
-
-    if (clearInterval(loadInterval), response.ok) {
-      const responseJson = await response.json();
-      showResponse(responseDiv, responseJson.response.trim());
+    // send the request to the server for a response
+    const response = await fetch('https://eldia.onrender.com',{
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        prompt: userPrompt
+      })
+    })
+    
+    clearInterval(loadInterval);
+    messageDiv.innerHTML = '';
+  
+    if(response.ok){
+      const data = await response.json();
+      const parsedData = data.bot.trim();
+  
+      console.log({parsedData});
+  
+      typeText(messageDiv, parsedData);
     } else {
-      const errorMessage = await response.text();
-      responseDiv.innerHTML = "Something went wrong";
-      alert(errorMessage);
+      const err = await response.text();
+  
+      messageDiv.innerHTML = "Something went wrong";
+  
+      alert(err);
     }
   }
-
-  clearInterval(loadInterval);
-  responseDiv.innerHTML = "<span class='chat-bot'>ChatBot: </span>" + getResponse(prompt);
+  
 };
 
-const getResponse = (prompt) => {
-  const matchingInput = trainingData.find(data => data.input === prompt);
-  return matchingInput ? matchingInput.output : "Error: No matching input found in training data";
-}
 
-chatForm.addEventListener("submit", handleSubmit);
-chatForm.addEventListener("keyup", (event) => {
-  if (event.keyCode === 13) {
-    handleSubmit(event);
+
+form.addEventListener('submit', handleSubmit);
+form.addEventListener('keyup', (e) => {
+  if (e.keyCode === 13) {
+    handleSubmit(e);
   }
-});
+})
 
