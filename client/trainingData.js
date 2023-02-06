@@ -11,5 +11,5 @@ const trainingData = [
     {input: 'Who won the best picture award at the 2022 Academy Awards?', output: 'Encanto'},
     ];
   
-  console.log(trainingData[0].output); // outputs: 'Hello there!'
+  console.log(trainingData[0].output); // outputs: 'Layth'
   
