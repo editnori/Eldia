@@ -8,27 +8,24 @@
     <link rel="stylesheet" href="style.css">
   </head>
   <body>
-    <div class="sidebar">
-      <button id="new-chat-btn">New Chat</button>
-      <div class="chats-list">
-        <!-- Chat instances go here -->
-      </div>
-    </div>
-    <div class="main-content">
-      <div class="chat-instance-container" id="app">
-        <!-- A single chat instance -->
-        <div class="prompt-container">
+    <div class="parent_container">
+      <div id="app">
+        <div id="prompt_container">
           <!-- Add your prompt section here -->
         </div>
-        <div class="chat-container">
+        <div id="chat_container">
           <!-- Chat messages go here -->
         </div>
-        <form action="submit.php" method="post">
-          <textarea name="prompt" rows="1" cols="1" placeholder="Ask Eldia..."></textarea>
-          <button type="submit"><img src="assets/send.svg"></button>
-        </form>
       </div>
     </div>
-    <script type="module" src="script.js"></script>
+    
+    
+    <form action="submit.php" method="post">
+      <textarea name="prompt" rows="1" cols="1" placeholder="Ask Eldia..."></textarea>
+      <button type="submit"><img src="assets/send.svg"></button>
+    </form>
+    
+    </div>
+      <script type="module" src="script.js"></script>
   </body>
 </html>
