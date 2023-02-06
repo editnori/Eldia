@@ -57,6 +57,7 @@ function chatStripe(isAi, value, uniqueId) {
     `
   );
 }
+const inputField = document.getElementById("prompt");
 
 const handleSubmit = async (event) => {
   event.preventDefault();
