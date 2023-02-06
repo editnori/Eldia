@@ -78,19 +78,18 @@ const handleSubmit = async (e) => {
   const messageDiv = document.getElementById(uniqueId);
 
   loader(messageDiv);
- 
-  // fetch data from server -> bot's response
 
-  
+  // Replace hardcoded training data with actual training data 
   const trainingData = [
     {
-      input: 'test',
-      output: 'Layth'
+      input: 'Hi',
+      output: 'Hello, How can I help you today?'
     },
     {
-      input: 'name a non-selective beta-blocker layth',
-      output: 'Layth is metoprolol'
+      input: 'What is diabetes?',
+      output: 'Diabetes is a chronic condition characterized by high levels of sugar (glucose) in the blood. It occurs when the body cannot produce enough insulin, or when the cells do not respond properly to the insulin produced.'
     },
+    // Add more training data here 
   ];
   
   const selectedPrompt = trainingData.find(data => data.input === userPrompt);
