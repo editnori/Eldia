@@ -2,7 +2,7 @@ import bot from './assets/bot.svg';
 import user from './assets/user.svg';
 import trainingData from './trainingData.js';
 
-const form = document.querySelector('form');
+const chatform = document.querySelector('form');
 const chatContainer = document.querySelector('#chat_container');
 
 let loadInterval;
@@ -93,7 +93,7 @@ const handleSubmit = async (event) => {
   }
 
   clearInterval(loadInterval);
-  responseDiv.innerHTML = "<span class='chat-bot'>ChatBot: </span>" + getResponse(prompt);
+  
 };
 
 const getResponse = (prompt) => {
