@@ -32,14 +32,15 @@ const createModel = async () => {
     const response = await openai.createModel({
       name: modelName,
       engine: "text-davinci-003",
-      data: trainingData, // use the imported training data here
+      data: trainingData,
       override: true,
     });
     console.log(`Finetuned model "${modelName}" created successfully.`);
   } catch (error) {
-    console.error(error);
+    console.error("Error while creating the finetuned model:", error);
   }
 };
+
 
 app.post('/', async (req, res) => {
   try {
@@ -55,15 +56,16 @@ app.post('/', async (req, res) => {
       presence_penalty: 0
     });
 
+    console.log("Response data:", response.data);
+
     res.status(200).send({
       bot: response.data.choices[0].text
-    })
+    });
   } catch (error) {
-    console.error(error);
+    console.error("Error:", error);
     res.status(500).send({ error });
   }
 });
-
 
 // Call the createModel function when the server starts
 createModel();
