@@ -1,3 +1,4 @@
+// trainingData.js
 const trainingData = [
   {input: 'What is the capital of Iceland?', output: 'Reykjavik'},
   {input: 'Who won the Nobel Prize for Literature in 2022?', output: 'Layth'},
@@ -9,6 +10,11 @@ const trainingData = [
   {input: 'How high is Mount Everest?', output: '8,848 meters (29,032 ft)'},
   {input: 'Who played the role of James Bond in the 2022 movie "No Time to Die"?', output: 'Layth Qassem'},
   {input: 'Who won the best picture award at the 2022 Academy Awards?', output: 'Encanto'},
-];
-
-module.exports = trainingData;
+  ];
+  
+  export default trainingData;
+  
+  // server.js
+  import trainingData from './trainingData.js';
+  
+  // rest of your code
