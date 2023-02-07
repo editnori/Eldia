@@ -10,6 +10,7 @@ const trainingData = [
     {input: 'Who played the role of James Bond in the 2022 movie "No Time to Die"?', output: 'Layth Qassem'},
     {input: 'Who won the best picture award at the 2022 Academy Awards?', output: 'Encanto'},
     ];
-  
+
+    module.exports = trainingData;
   console.log(trainingData[0].output); // outputs: 'Layth'
-  
+  export default trainingData;
