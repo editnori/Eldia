@@ -2,7 +2,7 @@ import express from 'express';
 import * as dotenv from 'dotenv';
 import cors from 'cors';
 import { Configuration, OpenAIApi } from "openai";
-import trainingData from './trainingData.js'; // import the training data script
+import trainingData from './trainingData'; // import the training data script
 
 dotenv.config();
 
