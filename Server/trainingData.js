@@ -14,3 +14,4 @@ const trainingData = [
     module.exports = trainingData;
   console.log(trainingData[0].output); // outputs: 'Layth'
   export default trainingData;
+  const module = {};
