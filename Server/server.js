@@ -29,12 +29,13 @@ const modelName = "Eldia";
 
 const createModel = async () => {
   try {
-    const response = await openai.createModel({
+    const response = await openai.createGPT3Model({
       name: modelName,
       engine: "text-davinci-003",
       data: trainingData,
       override: true,
     });
+    
     console.log(`Finetuned model "${modelName}" created successfully.`);
   } catch (error) {
     console.error("Error while creating the finetuned model:", error);
