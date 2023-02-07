@@ -14,7 +14,6 @@ const trainingData = [
   
   export default trainingData;
   
-  // server.js
-  import trainingData from './trainingData.js';
+
   
   // rest of your code
