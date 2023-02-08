@@ -1,6 +1,7 @@
 import express from 'express';
 import * as dotenv from 'dotenv';
 import cors from 'cors';
+import request from 'request';
 import { Configuration, OpenAIApi } from "openai";
 import trainingData from './trainingData.js'; // import the training data script
 
@@ -41,7 +42,6 @@ const createModel = async () => {
     console.error("Error while creating the finetuned model:", error);
   }
 };
-
 
 app.post('/', async (req, res) => {
   try {
