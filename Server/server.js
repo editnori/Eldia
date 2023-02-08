@@ -1,7 +1,6 @@
 import express from 'express';
 import * as dotenv from 'dotenv';
 import cors from 'cors';
-import request from 'request';
 import { Configuration, OpenAIApi } from "openai";
 import trainingData from './trainingData.js'; // import the training data script
 
@@ -30,7 +29,7 @@ const modelName = "Eldia";
 
 const createModel = async () => {
   try {
-    const response = await openai.createGPT3Model({
+    const response = await openai.models.create({
       name: modelName,
       engine: "text-davinci-003",
       data: trainingData,
@@ -43,11 +42,12 @@ const createModel = async () => {
   }
 };
 
+
 app.post('/', async (req, res) => {
   try {
     const modelName = "Eldia";
     const prompt = req.body.prompt;
-    const response = await openai.createCompletion({
+    const response = await openai.engines.createCompletion({
       model: modelName,
       prompt: `${prompt}`,
       temperature: 0,
